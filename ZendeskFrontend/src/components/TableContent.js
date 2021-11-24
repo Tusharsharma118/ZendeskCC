@@ -14,7 +14,8 @@ const TableContent = () => {
 
     // setup the onClick show the pop-up with ticket details
     const [modal, setModal] = useState(false)
-
+    const backendURI = "http://localhost:8080/tickets/"
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const showRowDetails = (value) =>  {
        setModal(!modal)
        setRowRecord(value)
@@ -26,7 +27,7 @@ const TableContent = () => {
             const nextCheck = (value === 'prev' ) ? false : true
             // condition to check if it is an initial request
             if (prev === ''){
-                const record = await axios.get("http://localhost:8080/tickets/",
+                const record = await axios.get(backendURI,
                 {
                     params:{
                         "nextURI" : "",
@@ -42,7 +43,7 @@ const TableContent = () => {
                 setPrev(record.data.links.prev);
                 setNext(record.data.links.next);
             } else {  
-                    const record = await axios.get("http://localhost:8080/tickets/",
+                    const record = await axios.get(backendURI,
                     {
                         params:{
                             "nextURI" : next,
@@ -96,11 +97,11 @@ const TableContent = () => {
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Subject</th>
+                            <th>ID</th>
+                            <th>TITLE</th>
                             {/* <th>Description</th> */}
-                            <th>Created Date</th>
-                            <th>Status</th>
+                            <th>CREATED ON</th>
+                            <th>STATUS</th>
                         </tr>
                     </thead>
                     {
@@ -110,8 +111,8 @@ const TableContent = () => {
                                     <td>{record?.id}</td>
                                     <td>{record?.subject}</td>
                                     {/* <td>{record?.description}</td> */}
-                                    <td>{record?.created_at}</td>
-                                    <td>{record?.status}</td>
+                                    <td>{new Date(record?.created_at).toLocaleDateString("en-US", options)}</td>
+                                    <td>{record?.status.toUpperCase()}</td>
                                 </tr>
                             </tbody>
                         ))
