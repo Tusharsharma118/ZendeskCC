@@ -1,4 +1,14 @@
+body{
+    background-color:black;
+}
+
+.table{
+    background-color: wheat;
+}
+
+
 .body-container {
+    background-color: whitesmoke;
     margin-top: 4%;
 }
 .btn-group-modal {
@@ -18,9 +28,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .modalContainer {
+    
     width: 500px;
     height: 500px;
     border-radius: 12px;
