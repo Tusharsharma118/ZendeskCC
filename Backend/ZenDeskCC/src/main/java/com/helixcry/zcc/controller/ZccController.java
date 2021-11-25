@@ -27,18 +27,22 @@ public class ZccController {
 	}
 	//can be extended further for on demand ticket requests
 	@GetMapping("/ticket/{id}")
-	public ResponseEntity<TicketContainer> fetchAll(@PathVariable Long id){
+	public ResponseEntity<TicketContainer> fetchOne(@PathVariable Long id){
+		if(id == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		return service.fetchTicket(id);
 	}
 	
 	@GetMapping("/tickets")
 	public ResponseEntity<ListContainer> fetchPaginated(@RequestParam(required = false) String nextURI,@RequestParam(required = false) String prevURI,@RequestParam(required = false) boolean next, @RequestParam boolean hasNext, @RequestParam int pageSize){
-		ResponseEntity<ListContainer> response = service.fetchPaginated(nextURI, prevURI,pageSize,next,hasNext);
-		if(response.getStatusCode() == HttpStatus.OK) {
-			return response;
-		}else {
-			
-			return new ResponseEntity<ListContainer>(response.getStatusCode());
+		// null check/validate all input should be usually done in a separate method 
+		// doing it here for brevity
+		if(nextURI == null || prevURI == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		ResponseEntity<ListContainer> response = service.fetchPaginated(nextURI, prevURI,pageSize,next,hasNext);
+		return response;
 	}
 }
