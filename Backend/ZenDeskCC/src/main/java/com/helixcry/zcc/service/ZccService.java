@@ -38,7 +38,7 @@ public class ZccService {
 	
 	public ZccService(RestTemplateBuilder restTemplateBuilder,Environment env) {
 		this.restTemplateBuilder = restTemplateBuilder;
-		this.restTemplateBuilder = this.restTemplateBuilder.basicAuthentication(env.getProperty("user"),env.getProperty("pass"));
+		this.restTemplateBuilder = this.restTemplateBuilder.basicAuthentication(env.getProperty("user"),env.getProperty("token"));
 		this.restTemplate = this.restTemplateBuilder.build();
 	}
 	
