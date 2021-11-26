@@ -1,7 +1,7 @@
 import axios from "axios";
 import { React, useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
-import { Button, ButtonGroup, Card, Container} from "react-bootstrap";
+import { Alert, Button, ButtonGroup, Card, Container} from "react-bootstrap";
 import './TableContent.css'
 
 const TableContent = () => {
@@ -70,7 +70,9 @@ const TableContent = () => {
     }, []);
     // console.log(tickets[0]?.id)
     return (
-        <>
+        <>  {
+
+            }
             {/* condition to show the pop-up */}
             {
                 modal && (
@@ -78,13 +80,13 @@ const TableContent = () => {
                         <div className="modalContainer">
                             <Card className="modal-text">
                                 <Card.Body>
-                                    <Card.Title>{rowRecord?.id}: {rowRecord?.subject}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">Status: {rowRecord?.status}</Card.Subtitle>
-                                    <Card.Text>{rowRecord?.description}</Card.Text>
-                                    <Card.Text>{rowRecord?.tags?.map(tag => ( <p> {tag} </p>   ))}</Card.Text>
+                                    <Card.Title title = {rowRecord?.subject} >{rowRecord?.id}: {rowRecord?.subject}</Card.Title> 
+                                    <Card.Subtitle className="mb-2 ">Status: {rowRecord?.status.toUpperCase()}</Card.Subtitle>
+                                    <Card.Text>{rowRecord?.description} <br/><br/> <b>Tags:</b>{rowRecord?.tags?.map((tag,index) => ( <span key={index} className="elements"> {tag} </span>   ))}</Card.Text>
+                                    
                                     <Button 
                                         onClick={() => showRowDetails({})}
-                                        variant='danger'>
+                                        variant='danger' className="floating-right">
                                         Close
                                     </Button>
                                 </Card.Body>
@@ -119,7 +121,12 @@ const TableContent = () => {
                     }
                 </Table>
             </Container>
-            <ButtonGroup className="btn-group-modal mb-2">
+           {tickets.length == 0 &&  <Alert variant='danger'   > 
+                    There seems to be a problem with our server! Please try again later!
+            </Alert> }
+
+            {tickets.length != 0 && 
+                <ButtonGroup className="btn-group-modal mb-2">
                 <Button 
                     className="btn-modal"
                     variant='primary'
@@ -133,6 +140,8 @@ const TableContent = () => {
                     disabled = {hasNext ? false : true}
                 >Next</Button>
             </ButtonGroup>
+            }
+            
         </>
     )
 }

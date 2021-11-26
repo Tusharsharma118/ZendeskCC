@@ -1,4 +1,5 @@
 body{
+    padding-top: 2%;
     background-color:black;
 }
 
@@ -11,13 +12,24 @@ body{
     background-color: whitesmoke;
     margin-top: 4%;
 }
+.alert{
+    margin-top: 4%;
+    text-align: center;
+
+}
 .btn-group-modal {
-    margin: 0 500px;
+    display: block;
+    text-align: center;
+    justify-content: center;
+
 }
 
 .btn-modal {
-    margin: 0 30px;
+    width: 120px;
+    padding:  10px;
+    margin: 0 5%;
     text-align: center;
+    border-radius: 10px !important;
 }
 
 .modalBackground {
@@ -28,15 +40,17 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    top: 0;
 }
+
+
 
 .modalContainer {
     
-    width: 500px;
+    width: 700px;
     height: 500px;
     border-radius: 12px;
-    background-color: lightgray;
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
@@ -44,5 +58,35 @@ body{
 }
 
 .modal-text {
-    background-color: lightcoral;
+    border: none;
+}
+
+.card-text{
+    overflow-y: auto;
+    height: 300px;
+}
+
+.card-title{
+    margin-bottom: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.card-subtitle{
+    color: white;
+    background-color: green;
+    padding: 5px 10px 10px;
+    width: fit-content;
+    border-radius: 100px;
+}
+.floating-right{
+    float: right;
+}
+.elements{
+    background-color: lightgrey;
+    padding: 5px 10px 10px;
+    width: fit-content;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 0 0 0 10px;
 }
