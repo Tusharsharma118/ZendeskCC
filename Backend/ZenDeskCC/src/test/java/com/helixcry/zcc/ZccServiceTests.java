@@ -47,7 +47,7 @@ class ZccServiceTests {
 //	}
 	@Test
 	void fetchAllTicketsPositive() {
-		server.expect(requestTo("https://zcchelix.zendesk.com/api/v2/tickets.json")).andRespond(withSuccess());
+		server.expect(requestTo("/domain/api/v2/tickets.json")).andRespond(withSuccess());
 		//when(restTemplate.exchange(Mockito.anyString(),HttpMethod.GET,null,ListContainer.class)).thenReturn(new ResponseEntity<>(HttpStatus.OK));
 		final ResponseEntity<ListContainer> response = service.fetchAllTickets();
 		assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -55,7 +55,7 @@ class ZccServiceTests {
 	
 	@Test
 	void fetchAllTicketsNegative() {
-		server.expect(requestTo("https://zcchelix.zendesk.com/api/v2/tickets.json")).andRespond((response) -> { throw new HttpClientErrorException(HttpStatus.EXPECTATION_FAILED); });
+		server.expect(requestTo("/domain/api/v2/tickets.json")).andRespond((response) -> { throw new HttpClientErrorException(HttpStatus.EXPECTATION_FAILED); });
 		final ResponseEntity<ListContainer> response = service.fetchAllTickets();
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 	}
@@ -63,7 +63,7 @@ class ZccServiceTests {
 	@Test
 	void fetchPaginatedPositiveEmpty() {
 		// case for fresh request
-		server.expect(requestTo("https://zcchelix.zendesk.com/api/v2/tickets.json?page[size]=25")).andRespond(withSuccess());
+		server.expect(requestTo("domain/api/v2/tickets.json?page[size]=25")).andRespond(withSuccess());
 		final ResponseEntity<ListContainer> responseEmptyURI = service.fetchPaginated("","prev",25, true,true);
 		assertEquals(HttpStatus.OK,responseEmptyURI.getStatusCode());
 		
@@ -93,13 +93,13 @@ class ZccServiceTests {
 	@Test
 	void fetchTicketPositive() {
 //		// for prev request https://tryingprev.com
-		server.expect(requestTo("https://zcchelix.zendesk.com/api/v2/tickets/1")).andRespond(withSuccess());
+		server.expect(requestTo("domain/api/v2/tickets/1")).andRespond(withSuccess());
 		final ResponseEntity<TicketContainer> response = service.fetchTicket((long) 1);
 		assertEquals(HttpStatus.OK,response.getStatusCode());	
 	}
 	@Test
 	void fetchTicketNegative() {
-		server.expect(requestTo("https://zcchelix.zendesk.com/api/v2/tickets/1")).andRespond((response) -> { throw new HttpClientErrorException(HttpStatus.EXPECTATION_FAILED); });
+		server.expect(requestTo("domain/api/v2/tickets/1")).andRespond((response) -> { throw new HttpClientErrorException(HttpStatus.EXPECTATION_FAILED); });
 		final ResponseEntity<TicketContainer> response = service.fetchTicket((long) 1);
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());	
 	}
