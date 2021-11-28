@@ -6,11 +6,11 @@
 - React Based Frontend
 
 ### Backend
-The backend is a SpringBoot application, to run it:
+The backend is a SpringBoot application, to run it you need to have:
 - Maven
 - JDK v1.8 or higher
 
-Before proceeding to run tha application, navigate to the application.properties file in the \src\main\resources directory and enter the username, token and subdomain accordingly.
+Before proceeding to run the application, navigate to the application.properties file in the \src\main\resources directory and enter the username, token and subdomain accordingly.
 
 - To install and run after entering the correct configuration info in application.properties file
 ```sh
